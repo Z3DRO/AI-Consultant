@@ -88,17 +88,20 @@ async function consult() {
   output.innerText = "Thinking...";
 
   try {
-    const res = await fetch("/api/consult", {
+    const response = await fetch("/api/consult", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json"
+      },
       body: JSON.stringify({ query: input })
     });
 
-    const data = await res.json();
+    const data = await response.json();
     output.innerText = data.response;
+
   } catch (err) {
+    output.innerText = "Error contacting AI.";
     console.error(err);
-    output.innerText = "Something went wrong. Check console.";
   }
 }
 </script>
