@@ -1,44 +1,33 @@
-export default async function handler(req, res) {
-  if (req.method !== "POST") {
-    return res.status(405).json({ error: "Method not allowed" });
-  }
+export async function post({ request }) {
+  const { query } = await request.json();
 
-  const { query } = req.body;
+  const endpoint = process.env.https://white-ground-04d638400.2.azurestaticapps.net;
+  const apiKey = process.env.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;
+  const deployment = "gpt-35-turbo";
 
-  if (!query) {
-    return res.status(400).json({ error: "Query is required" });
-  }
-
-  try {
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
+  const res = await fetch(
+    `${endpoint}/openai/deployments/${deployment}/chat/completions?api-version=2024-02-15-preview`,
+    {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${process.env.OPENAI_API_KEY}`
+        "api-key": apiKey
       },
       body: JSON.stringify({
-        model: "gpt-4.1-mini",
         messages: [
-          {
-            role: "system",
-            content: "You are an AI consultant helping buyers and sellers with structured guidance."
-          },
-          {
-            role: "user",
-            content: query
-          }
-        ],
-        temperature: 0.7
+          { role: "system", content: "You are an AI consultant for a SaaS marketplace." },
+          { role: "user", content: query }
+        ]
       })
-    });
+    }
+  );
 
-    const data = await response.json();
+  const data = await res.json();
 
-    res.status(200).json({
+  return new Response(
+    JSON.stringify({
       response: data.choices[0].message.content
-    });
-
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
+    }),
+    { status: 200 }
+  );
 }
