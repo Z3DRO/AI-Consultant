@@ -1,10 +1,97 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>AI Consultant</title>
-  </head>
-  <body>
-    <h1>AI Consultant is Live 🚀</h1>
-    <p>Static Web App deployed successfully.</p>
-  </body>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>AI Consultant</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0f172a;
+      color: #e5e7eb;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .card {
+      background: #020617;
+      padding: 2rem;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 500px;
+      box-shadow: 0 0 40px rgba(0,0,0,0.6);
+    }
+    h1 {
+      margin-bottom: 0.5rem;
+    }
+    p {
+      color: #9ca3af;
+    }
+    textarea {
+      width: 100%;
+      margin-top: 1rem;
+      padding: 0.75rem;
+      border-radius: 8px;
+      border: none;
+      resize: none;
+    }
+    button {
+      margin-top: 1rem;
+      width: 100%;
+      padding: 0.75rem;
+      border-radius: 8px;
+      border: none;
+      background: #3b82f6;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #2563eb;
+    }
+    .output {
+      margin-top: 1rem;
+      padding: 1rem;
+      background: #020617;
+      border-radius: 8px;
+      min-height: 60px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h1>AI Consultant</h1>
+    <p>Describe your problem and get structured guidance.</p>
+
+    <textarea id="input" rows="4" placeholder="Explain your problem..."></textarea>
+    <button onclick="consult()">Consult AI</button>
+
+    <div class="output" id="output">
+      AI response will appear here.
+    </div>
+  </div>
+
+  <script>
+    function consult() {
+      const input = document.getElementById("input").value;
+      const output = document.getElementById("output");
+
+      if (!input.trim()) {
+        output.innerText = "Please describe your problem.";
+        return;
+      }
+
+      // TEMP MOCK RESPONSE (API comes next)
+      output.innerText =
+        "Analyzing your problem...\n\n" +
+        "• Key issue identified\n" +
+        "• Possible solutions\n" +
+        "• Recommended next steps";
+    }
+  </script>
+
+</body>
 </html>
