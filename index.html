@@ -74,24 +74,35 @@
     </div>
   </div>
 
-  <script>
-    function consult() {
-      const input = document.getElementById("input").value;
-      const output = document.getElementById("output");
+ 
+    <script>
+async function consult() {
+  const input = document.getElementById("input").value;
+  const output = document.getElementById("output");
 
-      if (!input.trim()) {
-        output.innerText = "Please describe your problem.";
-        return;
-      }
+  if (!input.trim()) {
+    output.innerText = "Please describe your problem.";
+    return;
+  }
 
-      // TEMP MOCK RESPONSE (API comes next)
-      output.innerText =
-        "Analyzing your problem...\n\n" +
-        "• Key issue identified\n" +
-        "• Possible solutions\n" +
-        "• Recommended next steps";
-    }
-  </script>
+  output.innerText = "Thinking...";
 
+  try {
+    const res = await fetch("/api/consult", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ query: input })
+    });
+
+    const data = await res.json();
+    output.innerText = data.response;
+  } catch (err) {
+    console.error(err);
+    output.innerText = "Something went wrong. Check console.";
+  }
+}
+</script>
+
+  
 </body>
 </html>
